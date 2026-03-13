@@ -23,12 +23,14 @@ import {
   Menu, 
   MessageCircle,
   Monitor,
+  Moon,
   Phone,
   Scale,
   Shield,
   ShieldCheck, 
   Smartphone,
   Stethoscope,
+  Sun,
   Target,
   TrendingUp, 
   Users,
@@ -59,7 +61,7 @@ const WhatsAppButton = () => {
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ isDark, toggleTheme }: { isDark: boolean; toggleTheme: () => void }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
@@ -77,6 +79,15 @@ const Navbar = () => {
             <a href="#servicos" className="text-sm font-medium text-slate-600 hover:text-accent transition-colors">Serviços</a>
             <a href="#certificados" className="text-sm font-medium text-slate-600 hover:text-accent transition-colors">Certificados</a>
             <a href="#por-que-nos" className="text-sm font-medium text-slate-600 hover:text-accent transition-colors">Por que nós</a>
+            
+            <button 
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600"
+              aria-label="Alternar tema"
+            >
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
             <a 
               href={CONTACT_CONFIG.whatsappUrl}
               target="_blank"
@@ -87,7 +98,13 @@ const Navbar = () => {
             </a>
           </div>
 
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-4">
+            <button 
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600"
+            >
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <button onClick={() => setIsOpen(!isOpen)} className="text-slate-600">
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -796,9 +813,29 @@ const Footer = () => {
 };
 
 export default function App() {
+  const [isDark, setIsDark] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  });
+
+  React.useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
+
   return (
     <div className="min-h-screen">
-      <Navbar />
+      <Navbar isDark={isDark} toggleTheme={toggleTheme} />
       <main>
         <Hero />
         <Stats />
