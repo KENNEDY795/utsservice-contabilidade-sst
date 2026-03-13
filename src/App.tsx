@@ -144,7 +144,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
-              href={CONTACT_CONFIG.whatsappUrl}
+              href={CONTACT_CONFIG.consultationFormUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-accent text-white px-8 py-4 rounded-2xl text-lg font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-2 group"
