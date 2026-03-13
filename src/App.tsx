@@ -1,13 +1,20 @@
 import React from 'react';
 import { 
+  AlertCircle,
   Award,
   BarChart3, 
+  Briefcase,
   Building2, 
   Calculator, 
   CheckCircle2, 
   ChevronRight, 
   Clock, 
+  Cloud,
   Cpu, 
+  Database,
+  FileCheck,
+  FileText,
+  Fingerprint,
   Globe, 
   HardHat,
   Heart,
@@ -15,22 +22,25 @@ import {
   Mail,
   Menu, 
   MessageCircle,
+  Monitor,
   Phone,
+  Scale,
+  Shield,
   ShieldCheck, 
+  Smartphone,
   Stethoscope,
   Target,
   TrendingUp, 
+  Users,
   X 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CONTACT_CONFIG } from './constants';
 
 const WhatsAppButton = () => {
-  const whatsappUrl = `https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`;
-
   return (
     <motion.a
-      href={whatsappUrl}
+      href={CONTACT_CONFIG.whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ scale: 0, opacity: 0 }}
@@ -56,24 +66,19 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
-          <div className="flex items-center gap-3">
-            <img 
-              src="https://storage.googleapis.com/m-infra.appspot.com/v0/b/m-infra.appspot.com/o/ifinsopwckg3qv42b22ui5%2Finput_file_1.png?alt=media&token=86791e3e-4f0f-4886-8968-09761920803c" 
-              alt="UTS SERVICE Logo" 
-              className="h-12 w-auto"
-              referrerPolicy="no-referrer"
-            />
+          <a href="#" className="flex items-center gap-3 group">
             <div className="flex flex-col leading-none">
               <span className="text-xl font-display font-bold text-primary">UTS <span className="text-accent">SERVICE</span></span>
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.1em]">Manter a unidade de trabalho segura</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.1em]">Contabilidade & SST</span>
             </div>
-          </div>
+          </a>
           
           <div className="hidden md:flex items-center gap-8">
             <a href="#servicos" className="text-sm font-medium text-slate-600 hover:text-accent transition-colors">Serviços</a>
+            <a href="#certificados" className="text-sm font-medium text-slate-600 hover:text-accent transition-colors">Certificados</a>
             <a href="#por-que-nos" className="text-sm font-medium text-slate-600 hover:text-accent transition-colors">Por que nós</a>
             <a 
-              href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+              href={CONTACT_CONFIG.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all shadow-md active:scale-95"
@@ -98,9 +103,10 @@ const Navbar = () => {
           className="md:hidden glass border-b border-slate-200 absolute top-20 left-0 right-0 p-4 flex flex-col gap-4 shadow-xl"
         >
           <a href="#servicos" onClick={() => setIsOpen(false)} className="text-lg font-medium p-2">Serviços</a>
+          <a href="#certificados" onClick={() => setIsOpen(false)} className="text-lg font-medium p-2">Certificados</a>
           <a href="#por-que-nos" onClick={() => setIsOpen(false)} className="text-lg font-medium p-2">Por que nós</a>
           <a 
-            href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+            href={CONTACT_CONFIG.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-accent text-white w-full py-4 rounded-xl font-bold text-center"
@@ -138,7 +144,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a 
-              href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+              href={CONTACT_CONFIG.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-accent text-white px-8 py-4 rounded-2xl text-lg font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-2 group"
@@ -147,7 +153,7 @@ const Hero = () => {
               <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
-              href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+              href={CONTACT_CONFIG.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto bg-white text-primary border border-slate-200 px-8 py-4 rounded-2xl text-lg font-bold hover:bg-slate-50 transition-all text-center"
@@ -182,22 +188,40 @@ const Hero = () => {
 const Services = () => {
   const services = [
     {
-      icon: <BarChart3 className="text-blue-600" size={32} />,
-      title: "Contabilidade Digital",
-      description: "Gestão contábil moderna, ágil e focada em resultados reais para o seu negócio.",
-      features: ["Planejamento tributário", "Folha de pagamento", "Demonstrativos em tempo real"]
+      icon: <Calculator className="text-blue-600" size={32} />,
+      title: "Contabilidade Completa",
+      description: "Escrituração, balancetes mensais, balanço patrimonial e DRE para uma visão clara do seu negócio.",
+      features: ["Contabilidade Geral", "Contabilidade Gerencial", "Obrigações Acessórias (ECD/ECF)"]
     },
     {
-      icon: <HardHat className="text-slate-700" size={32} />,
+      icon: <TrendingUp className="text-emerald-600" size={32} />,
+      title: "Fiscal & Tributário",
+      description: "Apuração de impostos, planejamento tributário e conformidade com SPED para reduzir sua carga fiscal.",
+      features: ["Simples, Lucro Presumido e Real", "Planejamento Tributário", "Recuperação de Créditos"]
+    },
+    {
+      icon: <Users className="text-indigo-600" size={32} />,
+      title: "Departamento Pessoal",
+      description: "Gestão completa de folha de pagamento, eSocial, admissões e conformidade com a legislação trabalhista.",
+      features: ["Folha de Pagamento", "eSocial & FGTS Digital", "Rotinas Trabalhistas"]
+    },
+    {
+      icon: <Briefcase className="text-slate-700" size={32} />,
+      title: "Recursos Humanos (RH)",
+      description: "Suporte na gestão de pessoas, recrutamento, seleção e desenvolvimento do clima organizacional.",
+      features: ["Recrutamento & Seleção", "Cargos e Salários", "Avaliação de Desempenho"]
+    },
+    {
+      icon: <Scale className="text-amber-600" size={32} />,
+      title: "Legalização & Abertura",
+      description: "Abertura de empresas, alterações contratuais, registros em órgãos e regularização de pendências.",
+      features: ["Abertura e Baixa de Empresas", "Alvarás e Licenças", "Parcelamento de Débitos"]
+    },
+    {
+      icon: <HardHat className="text-orange-600" size={32} />,
       title: "Saúde e Segurança (SST)",
-      description: "Conformidade total com as NRs e envio de eventos para o eSocial com precisão.",
-      features: ["PGR / PCMSO / LTCAT", "Treinamentos de NRs", "Gestão de afastamentos"]
-    },
-    {
-      icon: <TrendingUp className="text-blue-700" size={32} />,
-      title: "BPO Financeiro",
-      description: "Terceirize seu financeiro e ganhe tempo para focar na estratégia da sua empresa.",
-      features: ["Contas a pagar/receber", "Fluxo de caixa", "Conciliação bancária"]
+      description: "Conformidade total com as NRs e envio de eventos para o eSocial com precisão técnica.",
+      features: ["PGR / PCMSO / LTCAT", "Treinamentos de NRs", "Gestão de eSocial SST"]
     }
   ];
 
@@ -205,23 +229,23 @@ const Services = () => {
     <section id="servicos" className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-4">Soluções Inteligentes</h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">Tudo o que sua empresa precisa para prosperar em um ambiente digital e competitivo.</p>
+          <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-4">Soluções 360° para sua Empresa</h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">Oferecemos um ecossistema completo de serviços para garantir a segurança jurídica, fiscal e contábil do seu negócio.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
               whileHover={{ y: -10 }}
-              className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all"
+              className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all group"
             >
-              <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-50 transition-colors">
                 {service.icon}
               </div>
               <h3 className="text-2xl font-bold text-primary mb-4">{service.title}</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">{service.description}</p>
-              <ul className="space-y-3">
+              <p className="text-slate-600 mb-6 leading-relaxed text-sm">{service.description}</p>
+              <ul className="space-y-3 mb-8">
                 {service.features.map((feature, fIndex) => (
                   <li key={fIndex} className="flex items-center gap-2 text-sm text-slate-700 font-medium">
                     <CheckCircle2 size={16} className="text-accent" />
@@ -229,6 +253,258 @@ const Services = () => {
                   </li>
                 ))}
               </ul>
+              <a 
+                href={CONTACT_CONFIG.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-accent font-bold text-sm hover:gap-3 transition-all"
+              >
+                Saiba mais <ChevronRight size={16} />
+              </a>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Certificates = () => {
+  const certificates = [
+    {
+      type: "e-CPF",
+      price: "129",
+      description: "Identidade digital para pessoas físicas. Assine documentos com validade jurídica.",
+      icon: <Fingerprint className="text-blue-600" size={40} />,
+      features: ["Assinatura de contratos", "Acesso ao e-CAC", "Declaração de IR facilitada"]
+    },
+    {
+      type: "e-CNPJ",
+      price: "159",
+      description: "Identidade digital para empresas. Essencial para emissão de notas e obrigações fiscais.",
+      icon: <Shield className="text-accent" size={40} />,
+      features: ["Emissão de NF-e", "Acesso ao Conectividade Social", "Assinatura em nome da empresa"],
+      popular: true
+    }
+  ];
+
+  return (
+    <section id="certificados" className="py-24 bg-slate-50 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-4">Certificados Digitais</h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">Emita seu certificado com rapidez, segurança e o melhor preço do mercado.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {certificates.map((cert, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -5 }}
+              className={`bg-white p-8 rounded-[2.5rem] border ${cert.popular ? 'border-accent shadow-xl shadow-blue-500/10' : 'border-slate-100 shadow-sm'} relative`}
+            >
+              {cert.popular && (
+                <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                  Mais Procurado
+                </span>
+              )}
+              <div className="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mb-8">
+                {cert.icon}
+              </div>
+              <h3 className="text-3xl font-bold text-primary mb-2">{cert.type}</h3>
+              <div className="flex items-baseline gap-1 mb-6">
+                <span className="text-slate-400 text-lg font-medium">R$</span>
+                <span className="text-4xl font-bold text-primary">{cert.price}</span>
+                <span className="text-slate-400 text-sm">/ano</span>
+              </div>
+              <p className="text-slate-600 mb-8 leading-relaxed">{cert.description}</p>
+              <ul className="space-y-4 mb-10">
+                {cert.features.map((feature, fIndex) => (
+                  <li key={fIndex} className="flex items-center gap-3 text-sm text-slate-700 font-medium">
+                    <CheckCircle2 size={18} className="text-green-500" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <a 
+                href={CONTACT_CONFIG.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full block text-center py-4 rounded-2xl font-bold transition-all ${cert.popular ? 'bg-accent text-white hover:bg-blue-700 shadow-lg shadow-blue-500/25' : 'bg-slate-100 text-primary hover:bg-slate-200'}`}
+              >
+                Emitir Agora
+              </a>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const TaxHighlight = () => {
+  return (
+    <section className="py-20 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -mr-48 -mt-48" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/10 rounded-full blur-[100px] -ml-48 -mb-48" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full text-sm font-bold mb-6 border border-white/30">
+              <AlertCircle size={18} />
+              Temporada 2026 Aberta
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+              Imposto de Renda <span className="text-accent">2026</span>
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+              Não deixe para a última hora! Evite a malha fina, minimize o imposto a pagar e garanta sua restituição nos primeiros lotes com nossa consultoria especializada.
+            </p>
+            <ul className="space-y-4 mb-10">
+              {[
+                "Declaração Completa e Simplificada",
+                "Análise de Ganhos de Capital (Imóveis e Ações)",
+                "Consultoria para Investidores (Cripto e Bolsa)",
+                "Regularização de CPF e Pendências"
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 font-medium">
+                  <CheckCircle2 size={20} className="text-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a 
+              href={CONTACT_CONFIG.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-accent text-white px-10 py-5 rounded-2xl text-lg font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-900/40 active:scale-95"
+            >
+              Falar com Especialista IR
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-8 lg:p-12 rounded-[3rem] shadow-2xl">
+              <div className="flex items-center justify-between mb-8">
+                <div className="text-accent">
+                  <FileText size={48} />
+                </div>
+                <div className="text-right">
+                  <div className="text-sm uppercase tracking-widest text-blue-200 font-bold">Prazo Final</div>
+                  <div className="text-2xl font-bold">30 de Abril</div>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="p-6 bg-white/5 rounded-2xl border border-white/10">
+                  <h4 className="font-bold mb-2">Restituição Rápida</h4>
+                  <p className="text-sm text-blue-100">Quanto antes você declara, mais cedo recebe sua restituição.</p>
+                </div>
+                <div className="p-6 bg-white/5 rounded-2xl border border-white/10">
+                  <h4 className="font-bold mb-2">Segurança Total</h4>
+                  <p className="text-sm text-blue-100">Análise minuciosa de cruzamento de dados para evitar a malha fina.</p>
+                </div>
+              </div>
+              <div className="mt-10 pt-8 border-t border-white/10 flex items-center gap-4">
+                <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                  <ShieldCheck size={24} />
+                </div>
+                <p className="text-sm font-medium text-blue-50">
+                  Sua tranquilidade fiscal é nossa prioridade absoluta.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Stats = () => {
+  const stats = [
+    { label: "Anos de Experiência", value: "10+", sub: "Desde 2014" },
+    { label: "Clientes Satisfeitos", value: "50+", sub: "Atendimento de excelência" },
+    { label: "Lançamentos Contábeis", value: "5.000+", sub: "Precisão em cada detalhe" },
+    { label: "Declarações Enviadas", value: "2.000+", sub: "Conformidade total" }
+  ];
+
+  return (
+    <section className="py-16 bg-primary text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <div className="text-4xl lg:text-5xl font-bold text-accent mb-2">{stat.value}</div>
+              <div className="text-lg font-semibold mb-1">{stat.label}</div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest">{stat.sub}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Technology = () => {
+  const techs = [
+    {
+      icon: <Monitor className="text-blue-500" />,
+      title: "Sistema Profissional",
+      description: "Utilizamos Alterdata Software, referência em gestão contábil no Brasil."
+    },
+    {
+      icon: <Smartphone className="text-emerald-500" />,
+      title: "Aplicativo do Cliente",
+      description: "Acesso total via e-Contador: documentos e solicitações na palma da sua mão."
+    },
+    {
+      icon: <Cloud className="text-sky-500" />,
+      title: "Arquivos em Nuvem",
+      description: "Seus documentos 100% digitais, acessíveis de qualquer lugar com segurança."
+    },
+    {
+      icon: <Database className="text-indigo-500" />,
+      title: "Backup & Segurança",
+      description: "Proteção rigorosa de dados com backups automáticos e criptografia."
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-5xl font-bold text-primary mb-4">Infraestrutura & Tecnologia</h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">Unimos o melhor da tecnologia contábil com um atendimento humanizado e consultivo.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {techs.map((tech, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -5 }}
+              className="p-8 rounded-3xl bg-slate-50 border border-slate-100 transition-all"
+            >
+              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm mb-6">
+                {tech.icon}
+              </div>
+              <h4 className="text-lg font-bold text-primary mb-3">{tech.title}</h4>
+              <p className="text-sm text-slate-600 leading-relaxed">{tech.description}</p>
             </motion.div>
           ))}
         </div>
@@ -413,7 +689,7 @@ const CTA = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a 
-                href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+                href={CONTACT_CONFIG.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-white text-primary px-10 py-5 rounded-2xl text-xl font-bold hover:bg-blue-50 transition-all shadow-xl active:scale-95 text-center"
@@ -421,7 +697,7 @@ const CTA = () => {
                 Começar agora
               </a>
               <a 
-                href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+                href={CONTACT_CONFIG.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-transparent text-white border border-white/30 px-10 py-5 rounded-2xl text-xl font-bold hover:bg-white/10 transition-all text-center"
@@ -443,15 +719,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
-              <img 
-                src="https://storage.googleapis.com/m-infra.appspot.com/v0/b/m-infra.appspot.com/o/ifinsopwckg3qv42b22ui5%2Finput_file_1.png?alt=media&token=86791e3e-4f0f-4886-8968-09761920803c" 
-                alt="UTS SERVICE Logo" 
-                className="h-10 w-auto"
-                referrerPolicy="no-referrer"
-              />
+            <a href="#" className="flex items-center gap-3 mb-6 group">
               <span className="text-lg font-display font-bold text-primary">UTS SERVICE</span>
-            </div>
+            </a>
             <p className="text-slate-500 text-sm leading-relaxed mb-6">
               Manter a unidade de trabalho segura. Especialistas em Contabilidade e Segurança do Trabalho.
             </p>
@@ -464,6 +734,10 @@ const Footer = () => {
                 <Phone size={16} />
                 +55 92 99200-1690
               </a>
+              <div className="flex items-center gap-2 text-sm text-slate-500">
+                <Clock size={16} className="text-accent" />
+                Segunda a sexta: 08h às 17h
+              </div>
             </div>
           </div>
           
@@ -485,7 +759,7 @@ const Footer = () => {
               <li><a href="#" className="hover:text-accent transition-colors">Blog</a></li>
               <li>
                 <a 
-                  href={`https://wa.me/${CONTACT_CONFIG.whatsappNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsappMessage)}`}
+                  href={CONTACT_CONFIG.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
@@ -499,9 +773,9 @@ const Footer = () => {
           <div>
             <h5 className="font-bold text-primary mb-6">Legal</h5>
             <ul className="space-y-4 text-sm text-slate-500">
-              <li><a href="#" className="hover:text-accent transition-colors">Privacidade</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Termos de Uso</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">LGPD</a></li>
+              <li><a href="/privacidade.html" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Privacidade</a></li>
+              <li><a href="/termos.html" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Termos de Uso</a></li>
+              <li><a href="/privacidade.html" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LGPD</a></li>
             </ul>
           </div>
         </div>
@@ -527,7 +801,11 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <Stats />
+        <TaxHighlight />
         <Services />
+        <Certificates />
+        <Technology />
         <WhyChooseUs />
         <About />
         <CTA />
