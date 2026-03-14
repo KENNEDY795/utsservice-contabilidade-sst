@@ -236,9 +236,14 @@ const Services = () => {
     },
     {
       icon: <HardHat className="text-orange-600" size={32} />,
-      title: "Saúde e Segurança (SST)",
-      description: "Conformidade total com as NRs e envio de eventos para o eSocial com precisão técnica.",
-      features: ["PGR / PCMSO / LTCAT", "Treinamentos de NRs", "Gestão de eSocial SST"]
+      title: "Segurança e Saúde do Trabalho SST",
+      description: "Gestão completa e documentação técnica para garantir a segurança dos colaboradores e a conformidade legal.",
+      features: [
+        "Programas: PGR/PCMSO/PCA/PPR/PGRCC/PGRSS",
+        "Laudos: Insalubridade, LTCAT e Periculosidade",
+        "Cursos e Treinamentos em NR’s",
+        "Gestão e Documentação em Segurança"
+      ]
     }
   ];
 
